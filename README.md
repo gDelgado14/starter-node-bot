@@ -36,3 +36,13 @@ This code uses the [botkit](https://github.com/howdyai/botkit) npm module by the
 
 See the [LICENSE](LICENSE.md) file (MIT).
 
+
+## additional
+
+### sidebars
+
+```
+/sidebar __purpose__ @invitees
+```
+
+creates a channel of name __purpose__ and adds @invitees to channel 
