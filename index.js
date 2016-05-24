@@ -1,42 +1,3 @@
-var Botkit = require('botkit');
-var logger = require('morgan');
-
-// Beep Boop Specifies the port you should listen on default to 8080 for local dev
-var PORT = process.env.PORT || 8080;
-
-var controller = botkit.slackbot();
-
-require('beepboop-botkit').start(controller, {debut: true});
-
-controller.setupWebserver(PORT, function(err, webserver) {
-  if (err) {
-    console.error(err);
-    process.exit(1);
-  }
-
-  webserver.use(logger('tiny'));
-  // Setup our slash command webhook endpoints
-  controller.createWebhookEndpoints(webserver);
-});
-
-controller.on('slash_command', function (bot, message) {
-  // Validate Slack verify token
-  if (message.token !== VERIFY_TOKEN) {
-    return bot.res.send(401, 'Unauthorized')
-  }
-
-  switch (message.command) {
-    case '/beepboop':
-      bot.replyPrivate(message, 'boopbeep')
-      break
-    default:
-      bot.replyPrivate(message, "Sorry, I'm not sure what that command is")
-  }
-})
-
-
-
-/*
 // Expect a SLACK_TOKEN environment variable
 var slackToken = process.env.SLACK_TOKEN
 if (!slackToken) {
@@ -107,4 +68,3 @@ controller.hears(['attachment'], ['direct_message', 'direct_mention'], function 
 controller.hears('.*', ['direct_message', 'direct_mention'], function (bot, message) {
   bot.reply(message, 'Sorry <@' + message.user + '>, I don\'t understand. \n')
 })
-*/
